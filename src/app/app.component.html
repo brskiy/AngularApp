@@ -1,6 +1,13 @@
 <h1>Привет {{title}} </h1>
+<label>
+  <input type="text" class="text" (input)="onInput($event)">
+</label>
 <app-post2></app-post2>
 <button (click)="clickOnButton()"> Скрыл открыл</button>
+
 <div *ngIf="onOrOff">Хыхык</div>
+<h1>{{inputValue}} </h1>
+
+<div></div>
 
 

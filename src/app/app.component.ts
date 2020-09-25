@@ -12,4 +12,9 @@ export class AppComponent {
   clickOnButton (){
     this.onOrOff = !this.onOrOff
   }
+
+  onInput(event?:any){
+    this.inputValue = event.target.value
+  }
+  inputValue = ''
 }
