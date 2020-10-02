@@ -10,7 +10,7 @@ blue: !onOrOff
 <button (click)="clickOnButton()"> Скрыл открыл</button>
 
 <div *ngIf="onOrOff">Хыхык</div>
-<h1>{{inputValue}} </h1>
+<h1 [class.blue]="onOrOff">{{inputValue}} </h1>
 
 <div></div>
 
