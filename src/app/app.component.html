@@ -1,7 +1,8 @@
-<h1>Привет {{title}} </h1>
+<h1 [ngStyle]="{backgroundColor: onOrOff ? 'red':'white'}">Привет {{title}} </h1>
 <label>
   <input type="text" [(ngModel)]="inputValue" >
 </label>
+<button (click)="onOrOff = !onOrOff">Toggle</button>
 <app-post2></app-post2>
 <button (click)="clickOnButton()"> Скрыл открыл</button>
 
