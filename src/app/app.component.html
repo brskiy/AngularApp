@@ -1,17 +1,9 @@
-<h1 [ngClass]="{
-red: onOrOff,
-blue: !onOrOff
-}">Привет {{title}} </h1>
-<label>
-  <input type="text" [(ngModel)]="inputValue" >
-</label>
-<button (click)="onOrOff = !onOrOff">Toggle</button>
-<app-post2></app-post2>
-<button (click)="clickOnButton()"> Скрыл открыл</button>
-
-<div *ngIf="onOrOff">Хыхык</div>
-<h1 [class.blue]="onOrOff">{{inputValue}} </h1>
-
-<div></div>
-
-
+<nav mat-tab-nav-bar mat-align-tabs="center">
+  <a mat-tab-link *ngFor="let link of links"
+     (click)="activeLink = link"
+     [active]="activeLink == link"
+     [routerLink]="link.link" [ngStyle]="{
+     backgroundColor: link.color
+     }">{{link.label}}</a>
+</nav>
+<router-outlet></router-outlet>
