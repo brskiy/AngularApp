@@ -1,4 +1,7 @@
-<h1 [ngStyle]="{backgroundColor: onOrOff ? 'red':'white'}">Привет {{title}} </h1>
+<h1 [ngClass]="{
+red: onOrOff,
+blue: !onOrOff
+}">Привет {{title}} </h1>
 <label>
   <input type="text" [(ngModel)]="inputValue" >
 </label>
