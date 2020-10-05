@@ -1,1 +1,26 @@
-<p>Тут будет форма перевода</p>
+<div class="container">
+
+
+  <input type="text" class="text">
+  <input type="text" class="text">
+
+  <mat-form-field class= 'year' appearance="fill">
+    <mat-label>Месяц</mat-label>
+    <mat-select required>
+      <mat-option *ngFor="let m of month" [value]="m">
+        {{m}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Год</mat-label>
+    <mat-select required>
+      <mat-option *ngFor="let y of year" [value]="y">
+        {{y}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+</div>

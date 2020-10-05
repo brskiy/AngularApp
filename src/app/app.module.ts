@@ -2,10 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { LayoutComponent } from './layout.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatTabsModule} from "@angular/material/tabs";
 import { HistoryComponent } from './history/history.component';
 import { P2pFormComponent } from './p2p-form/p2p-form.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -18,7 +22,12 @@ import { P2pFormComponent } from './p2p-form/p2p-form.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [LayoutComponent]

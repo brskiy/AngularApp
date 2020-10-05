@@ -11,5 +11,5 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  now = new Date()
 }
