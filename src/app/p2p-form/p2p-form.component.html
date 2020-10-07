@@ -1,26 +1,30 @@
 <div class="container">
 
 
-  <input type="text" class="text">
-  <input type="text" class="text">
+  <input type="text" class="form-control" placeholder="Номер карты" [(ngModel)]="senderCardNumber">
+  <input type="text" class="form-control" placeholder="ФИО">
 
-  <mat-form-field class= 'year' appearance="fill">
+  <mat-form-field class= 'ym' appearance="fill">
     <mat-label>Месяц</mat-label>
-    <mat-select required>
-      <mat-option *ngFor="let m of month" [value]="m">
+    <mat-select required [(value)]="month">
+      <mat-option *ngFor="let m of months" [value]="m">
         {{m}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field class= 'ym' appearance="fill">
     <mat-label>Год</mat-label>
-    <mat-select required>
-      <mat-option *ngFor="let y of year" [value]="y">
+    <mat-select required [(value)]="year">
+      <mat-option *ngFor="let y of years" [value]="y">
         {{y}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-
-
+  <hr>
+  <button class="btn" (click)="getHistory()">Получить историю</button>
+<button class="btn" (click)="addTransaction()">Перевести</button>
+  <div>{{senderCardNumber}}</div>
+  <div>{{year}}</div>
+  <div>{{month}}</div>
 </div>

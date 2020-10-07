@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {StorageService} from "../storage.service";
+import {TransferInfo} from "../app.component";
 
 @Component({
   selector: 'app-history',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _storageService:StorageService) { }
 
   ngOnInit(): void {
+    this.getHistory()
   }
-  now = new Date()
+  history: TransferInfo[] = []
+
+  getHistory(){
+    this.history = this._storageService.getHistory()
+  }
+
 }

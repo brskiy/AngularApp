@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { LayoutComponent } from './layout.component';
+import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatTabsModule} from "@angular/material/tabs";
 import { HistoryComponent } from './history/history.component';
@@ -10,13 +10,16 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutComponent } from './layout/layout.component';
+import {StorageService} from "./storage.service";
 
 
 @NgModule({
   declarations: [
-    LayoutComponent,
+    AppComponent,
     HistoryComponent,
-    P2pFormComponent
+    P2pFormComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -29,8 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     MatInputModule
   ],
-  providers: [],
-  bootstrap: [LayoutComponent]
+  providers: [StorageService],
+  bootstrap: [AppComponent]
 })
 
 export class AppModule { }
