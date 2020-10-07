@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, DoCheck} from '@angular/core';
 import {TabsLinks} from "../app.component";
 
 @Component({
@@ -6,7 +6,7 @@ import {TabsLinks} from "../app.component";
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements DoCheck {
 
   links:TabsLinks[] = [
     {label:"Перевод",link:"/p2p"},
@@ -15,7 +15,8 @@ export class LayoutComponent implements OnInit {
 
   activeLink: string
 
-  ngOnInit(){
+
+  ngDoCheck(){
     this.activeLink = location.pathname
   }
 

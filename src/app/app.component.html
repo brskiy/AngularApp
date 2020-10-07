@@ -1,1 +1,7 @@
-<app-layout></app-layout>
+
+<button *ngIf="!should_open" class="btn" [routerLink]="'/p2p'" (click)="openChildComponent()">Перейти на форму перехода</button>
+
+
+
+<app-layout *ngIf="should_open"></app-layout>
+

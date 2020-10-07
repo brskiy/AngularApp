@@ -1,4 +1,5 @@
-import { Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 export interface TabsLinks {
   label: string,
@@ -6,8 +7,8 @@ export interface TabsLinks {
   color?:string
 }
 export interface TransferInfo {
-  expiryMonth?:string,
-  expiryYear?:string,
+  expiryMonth?:number,
+  expiryYear?:number,
   senderCardNumber?:string,
   recipientCardNumber?:string,
   fullName?:string,
@@ -24,8 +25,23 @@ export interface TransferInfo {
 
 
 
-export class AppComponent{
+export class AppComponent implements OnInit{
+  private router: Router;
 
+  constructor(router: Router) {
+    this.router = router
+  }
+
+  public should_open:boolean = false
+  ngOnInit(): void {
+    this.should_open = localStorage.getItem("isOpen")==='true'
+    if (this.should_open) {this.router.navigateByUrl("/p2p")}
+  }
+
+  openChildComponent(){
+    this.should_open = true;
+    localStorage.setItem("isOpen", 'true')
+  }
 
 
 }
