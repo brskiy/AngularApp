@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -12,7 +12,12 @@ import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
 import {StorageService} from "./storage.service";
+import {MatTableModule} from "@angular/material/table";
+import {registerLocaleData} from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
+registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [
@@ -28,11 +33,16 @@ import {StorageService} from "./storage.service";
     MatTabsModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule
   ],
-  providers: [StorageService],
+  providers: [
+    StorageService,
+    {provide: LOCALE_ID, useValue: "ru"}
+  ],
   bootstrap: [AppComponent]
 })
 

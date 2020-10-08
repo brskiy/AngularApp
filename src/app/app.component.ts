@@ -26,16 +26,13 @@ export interface TransferInfo {
 
 
 export class AppComponent implements OnInit{
-  private router: Router;
 
-  constructor(router: Router) {
-    this.router = router
-  }
+  constructor(private _router: Router) {  }
 
   public should_open:boolean = false
   ngOnInit(): void {
     this.should_open = localStorage.getItem("isOpen")==='true'
-    if (this.should_open) {this.router.navigateByUrl("/p2p")}
+    if (this.should_open) {this._router.navigateByUrl("/p2p")}
   }
 
   openChildComponent(){

@@ -15,16 +15,17 @@ export class P2pFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHistory()
+    this.repeat()
   }
-  senderCardNumber:string = ""
-  recipientCardNumber:string = ""
-  fullName:string = ""
-  sum: number = 0
-  expiryMonth: number
-  expiryYear: number
+  senderCardNumber:string = "";
+  recipientCardNumber:string = "";
+  fullName:string = "";
+  sum: number;
+  expiryMonth: number;
+  expiryYear: number;
   months: string[] = ["1","2","3","4","5","6","7","8","9","10","11","12"];
   years: string[] = ["20","21","22","23","24","25","26"];
-  history: TransferInfo[] = this._storageService.getHistory()
+  history: TransferInfo[] = this._storageService.getHistory();
 
   addTransaction(){
 
@@ -42,10 +43,24 @@ export class P2pFormComponent implements OnInit {
   }
 
   getHistory(){
-    console.log(this.history)
+    console.log(this.history);
     this.history = this._storageService.getHistory()
   }
 
+  repeat(){
+    const repeatTransaction = this._storageService.activeTransaction;
+    if(this._storageService.r){
+      this.senderCardNumber = repeatTransaction.senderCardNumber;
+      this.recipientCardNumber = repeatTransaction.recipientCardNumber;
+      this.fullName = repeatTransaction.fullName;
+      this.sum = repeatTransaction.sum
+      this.expiryYear = repeatTransaction.expiryYear
+      this.expiryMonth = repeatTransaction.expiryMonth
+    }
+    this._storageService.r=false;
+    this._storageService.activeTransaction = null;
+
+  }
 
 
 

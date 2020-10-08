@@ -10,6 +10,8 @@ export class StorageService {
 
   constructor() { }
   h: TransferInfo[] = []
+  activeTransaction: TransferInfo = null
+  r:boolean = true
 
   getHistory(){
     return this.h
@@ -20,7 +22,12 @@ export class StorageService {
   }
 
   deleteTransaction(transfer:TransferInfo){
-    this.h = this.h.filter((h) => {return h.id == transfer.id})
+    this.h = this.h.filter((item) => item.id !== transfer.id)
+  }
+
+  repeat(transfer:TransferInfo){
+    this.activeTransaction = transfer
+    this.r = true
   }
 
 }
