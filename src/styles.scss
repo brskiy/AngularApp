@@ -1,5 +1,5 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-
+@import "~angular-notifier/styles.scss";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 * {
@@ -80,3 +80,9 @@ textarea {
 hr {
   margin: .5rem 0;
 }
+
+.loader{
+  top:200px;
+  margin:0 auto;
+}
+

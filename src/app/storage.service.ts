@@ -11,14 +11,14 @@ export class StorageService {
   constructor() { }
   h: TransferInfo[] = []
   activeTransaction: TransferInfo = null
-  r:boolean = true
+  r:boolean = false
 
   getHistory(){
     return this.h
   }
 
   addTransaction(transfer:TransferInfo){
-    this.h.push(transfer)
+    this.h.unshift(transfer)
   }
 
   deleteTransaction(transfer:TransferInfo){

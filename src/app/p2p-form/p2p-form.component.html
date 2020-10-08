@@ -1,11 +1,13 @@
-<div class="container">
+<mat-spinner *ngIf="loader" class="loader"></mat-spinner>
+<div *ngIf="!loader">
+<div  class="container">
 
-  <input type="text" class="form-control" placeholder="Номер карты плательщика" [(ngModel)]="senderCardNumber">
-  <input type="text" class="form-control" placeholder="ФИО" [(ngModel)]="fullName">
+  <input type="text" class="form-control" placeholder="Номер карты плательщика" mask="0000 0000 0000 0000" [(ngModel)]="senderCardNumber">
+  <input type="text" class="form-control" placeholder="ФИО"  [(ngModel)]="fullName" >
 
-  <mat-form-field class= 'ym' appearance="fill">
+  <mat-form-field class= 'ym' appearance="fill" >
     <mat-label>Месяц</mat-label>
-    <mat-select required [(value)]="expiryMonth">
+    <mat-select required [(value)]="expiryMonth" >
       <mat-option *ngFor="let m of months" [value]="m">
         {{m}}
       </mat-option>
@@ -21,15 +23,17 @@
     </mat-select>
   </mat-form-field>
 
-  <input type="number" class="form-control" placeholder="Сумма" [(ngModel)]="sum">
+  <input type="number" class="form-control" placeholder="Сумма" [(ngModel)]="sum" >
 
   <hr>
   <button class="btn" (click)="getHistory()">Получить историю</button>
   <button class="btn" (click)="addTransaction()">Перевести</button>
+
 </div>
 
 <hr>  <hr>  <hr>
 
 <div class="container">
-  <input type="text" class="form-control" placeholder="Номер карты получателя" [(ngModel)]="recipientCardNumber">
+  <input type="text" class="form-control" placeholder="Номер карты получателя" mask="0000 0000 0000 0000" [(ngModel)]="recipientCardNumber">
+</div>
 </div>

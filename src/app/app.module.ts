@@ -16,8 +16,11 @@ import {MatTableModule} from "@angular/material/table";
 import {registerLocaleData} from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {NgxMaskModule, IConfig} from "ngx-mask";
+import { NotifierModule } from "angular-notifier";
 
 registerLocaleData(localeRu, 'ru');
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ registerLocaleData(localeRu, 'ru');
     MatFormFieldModule,
     BrowserAnimationsModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+    NgxMaskModule.forRoot(),
+    NotifierModule
   ],
   providers: [
     StorageService,
