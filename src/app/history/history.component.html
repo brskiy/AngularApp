@@ -1,6 +1,13 @@
-<div class="cont">
+<div class="container">
 <mat-spinner *ngIf="loader" class="loader"></mat-spinner>
-  <div *ngIf="!history.length&&!loader" class="loader">Совершите операции, чтобы они тут появились</div>
+
+  <div *ngIf="!history.length&&!loader" class="form-control-sum">
+    <div class="sumBtn">
+      <div>Совершите перевод, чтобы тут появилась история</div>
+      <button class="btn" (click)="redirectP2P()">Совершить перевод</button>
+    </div>
+  </div>
+
 <table *ngIf="!loader&&!!history.length" mat-table [dataSource]="history" class="mat-elevation-z8 table">
 
   <ng-container matColumnDef="id">

@@ -1,6 +1,8 @@
 <mat-spinner *ngIf="loader" class="loader"></mat-spinner>
 <div *ngIf="!loader">
-<div  class="container">
+
+  <div class="container">
+<div  class="card">
 
   <input type="text" class="form-control" placeholder="Номер карты плательщика" mask="0000 0000 0000 0000" [(ngModel)]="senderCardNumber">
   <input type="text" class="form-control" placeholder="ФИО"  [(ngModel)]="fullName" >
@@ -23,17 +25,21 @@
     </mat-select>
   </mat-form-field>
 
-  <input type="number" class="form-control" placeholder="Сумма" [(ngModel)]="sum" >
-
-  <hr>
-  <button class="btn" (click)="getHistory()">Получить историю</button>
-  <button class="btn" (click)="addTransaction()">Перевести</button>
-
 </div>
 
-<hr>  <hr>  <hr>
 
-<div class="container">
+
+<div class="card">
   <input type="text" class="form-control" placeholder="Номер карты получателя" mask="0000 0000 0000 0000" [(ngModel)]="recipientCardNumber">
 </div>
+  </div>
+
+
+  <div class="form-control-sum">
+    <div class="sumBtn">
+      <input type="number" class="sum" placeholder="Сумма" [(ngModel)]="sum" >
+      <button class="btn" (click)="addTransaction()">Перевести</button>
+    </div>
+  </div>
+
 </div>

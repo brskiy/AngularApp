@@ -36,8 +36,12 @@ export class HistoryComponent implements OnInit, DoCheck {
     this.getHistory()
   }
 
+  redirectP2P(){
+    this._router.navigateByUrl("/p2p")
+  }
+
   repeat(element:TransferInfo){
     this._storageService.repeat(element)
-    this._router.navigateByUrl("/p2p")
+    this.redirectP2P()
   }
 }
