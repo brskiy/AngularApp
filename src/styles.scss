@@ -14,6 +14,12 @@
   padding-top: 1rem;
   display: flex;
 }
+// Убрать стрелки у инпута суммы
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 .btn {
   display: inline-block;
@@ -28,10 +34,22 @@
   border-radius: 5px;
   margin-right: 10px;
 }
+.mat-form-field-wrapper{
+  margin-top: 13px;
+
+}
+.mat-form-field-flex{
+  background-color: white !important;
+}
 .withoutTransactions{
   font-size: 30px;
 }
-
+.fio{
+  width: 200px;
+}
+.mat-form-field-underline{
+  width: 0px !important;
+}
 .btn:hover {
   opacity: 0.8;
 }
@@ -54,11 +72,13 @@
   margin: 0 auto;
 }
 
+
 .card {
   padding: 1rem;
   border: #ccc 1px dotted;
   margin: 0 auto;
   min-width: 400px;
+  height: 210px;
   border-radius: 20px;
 }
 

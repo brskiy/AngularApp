@@ -44,4 +44,5 @@ export class HistoryComponent implements OnInit, DoCheck {
     this._storageService.repeat(element)
     this.redirectP2P()
   }
+
 }

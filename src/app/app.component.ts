@@ -7,13 +7,13 @@ export interface TabsLinks {
   color?:string
 }
 export interface TransferInfo {
-  expiryMonth?:number,
-  expiryYear?:number,
-  senderCardNumber?:string,
-  recipientCardNumber?:string,
-  fullName?:string,
-  docDate?: Date,
-  sum?: number,
+  expiryMonth:number,
+  expiryYear:number,
+  senderCardNumber:string,
+  recipientCardNumber:string,
+  fullName:string,
+  docDate: Date,
+  sum: number,
   id?: number
 }
 

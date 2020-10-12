@@ -5,7 +5,8 @@
 <div  class="card">
 
   <input type="text" class="form-control" placeholder="Номер карты плательщика" mask="0000 0000 0000 0000" [(ngModel)]="senderCardNumber">
-  <input type="text" class="form-control" placeholder="ФИО"  [(ngModel)]="fullName" >
+  <div style="display: flex">
+  <input type="text" class="form-control fio" placeholder="ФИО"  [(ngModel)]="fullName" >
 
   <mat-form-field class= 'ym' appearance="fill" >
     <mat-label>Месяц</mat-label>
@@ -24,7 +25,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
+  </div>
 </div>
 
 
