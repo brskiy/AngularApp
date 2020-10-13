@@ -3,8 +3,9 @@
 
   <div *ngIf="!history.length&&!loader" class="form-control-sum">
     <div class="sumBtn">
-      <div>Совершите перевод, чтобы тут появилась история</div>
-      <button class="btn" (click)="redirectP2P()">Совершить перевод</button>
+      <div>Совершите перевод, чтобы тут появилась история
+        <button class="sumBtn btn" (click)="redirectP2P()">Совершить перевод</button>
+      </div>
     </div>
   </div>
 
@@ -17,16 +18,16 @@
 
   <ng-container matColumnDef="senderCardNumber">
     <th mat-header-cell *matHeaderCellDef> Карта плательщика </th>
-    <td mat-cell *matCellDef="let element"> {{element["senderCardNumber"]}} </td>
+    <td mat-cell *matCellDef="let element"> {{element["senderCardNumber"] | cardViewTransform}} </td>
   </ng-container>
 
   <ng-container matColumnDef="recipientCardNumber">
     <th mat-header-cell *matHeaderCellDef> Карта получателя </th>
-    <td mat-cell *matCellDef="let element"> {{element["recipientCardNumber"]}} </td>
+    <td mat-cell *matCellDef="let element"> {{element["recipientCardNumber"] | cardViewTransform}} </td>
   </ng-container>
 
   <ng-container matColumnDef="sum">
-    <th mat-header-cell *matHeaderCellDef> Сумма </th>
+    <th mat-header-cell *matHeaderCellDef> Сумма, &#8381;</th>
     <td mat-cell *matCellDef="let element"> {{element["sum"]}} </td>
   </ng-container>
 

@@ -1,10 +1,13 @@
-
-<button *ngIf="!should_open" class="btn" [routerLink]="'/p2p'" (click)="openChildComponent()">Перейти на форму перехода</button>
-
-
+<div *ngIf="!should_open" >
+<div class="container">
+<button class="btn btnRedirect" [routerLink]="'/p2p'" (click)="openChildComponent()">Перейти на форму перевода</button>
+</div>
+<div class="container redirectText">
+<div> Данным действием вы подтверждаете, что согласны с политикой обработки данных бла бла бла куки и прочее. Использовал для проверки localstorage.</div>
+</div>
+</div>
 
 <app-layout *ngIf="should_open"></app-layout>
-
 
 <notifier-container></notifier-container>
 

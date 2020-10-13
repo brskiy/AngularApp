@@ -18,6 +18,7 @@ import localeRu from '@angular/common/locales/ru';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {NgxMaskModule, IConfig} from "ngx-mask";
 import { NotifierModule } from "angular-notifier";
+import { CardViewTransformPipe } from './pipes/card-view-transform.pipe';
 
 registerLocaleData(localeRu, 'ru');
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -27,7 +28,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     AppComponent,
     HistoryComponent,
     P2pFormComponent,
-    LayoutComponent
+    LayoutComponent,
+    CardViewTransformPipe
   ],
   imports: [
     BrowserModule,

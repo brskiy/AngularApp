@@ -2,6 +2,13 @@
 @import "~angular-notifier/styles.scss";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+// Убрать стрелки у инпута суммы
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,12 +20,6 @@
   margin: 0 auto;
   padding-top: 1rem;
   display: flex;
-}
-// Убрать стрелки у инпута суммы
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
 }
 
 .btn {
@@ -34,6 +35,11 @@ input::-webkit-inner-spin-button {
   border-radius: 5px;
   margin-right: 10px;
 }
+
+.btn:hover {
+  opacity: 0.8;
+}
+
 .mat-form-field-wrapper{
   margin-top: 13px;
 
@@ -41,46 +47,11 @@ input::-webkit-inner-spin-button {
 .mat-form-field-flex{
   background-color: white !important;
 }
-.withoutTransactions{
-  font-size: 30px;
-}
-.fio{
-  width: 200px;
-}
+
 .mat-form-field-underline{
   width: 0px !important;
 }
-.btn:hover {
-  opacity: 0.8;
-}
 
-.form-control {
-  display: block;
-  margin: 1.2rem 0;
-}
-.form-control-sum{
-  display: flex;
-  margin: 30px auto;
-  width: 50%;
-}
-.sum{
-  width: 100%;
-  margin-right: 10px;
-}
-.sumBtn{
-  display: flex;
-  margin: 0 auto;
-}
-
-
-.card {
-  padding: 1rem;
-  border: #ccc 1px dotted;
-  margin: 0 auto;
-  min-width: 400px;
-  height: 210px;
-  border-radius: 20px;
-}
 
 input,
 select,
@@ -94,5 +65,9 @@ textarea {
 
 .loader{
   margin:200px auto;
+}
+.form-control {
+  display: block;
+  margin: 1.2rem 0;
 }
 
