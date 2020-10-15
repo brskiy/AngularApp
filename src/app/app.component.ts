@@ -40,8 +40,8 @@ export class AppComponent implements OnInit{
     if (this.shouldOpen) {this._router.navigateByUrl('/p2p'); }
   }
 
-  aut(){
-    this.auth.isValidToken()
+  tokenAuth(login:string, password: string):void{
+    this.auth.tokenAuth(this.login,this.password)
     //this.http.auth("/api/user/auth", {name:this.login, password:this.password})
   }
 

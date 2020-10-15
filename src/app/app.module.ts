@@ -21,6 +21,7 @@ import { NotifierModule } from 'angular-notifier';
 import { CardViewTransformPipe } from './pipes/card-view-transform.pipe';
 import { HttpClientModule } from '@angular/common/http';
 
+
 registerLocaleData(localeRu, 'ru');
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
