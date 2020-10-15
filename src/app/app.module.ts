@@ -2,23 +2,24 @@ import { BrowserModule } from '@angular/platform-browser';
 import {LOCALE_ID, NgModule} from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatTabsModule} from "@angular/material/tabs";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatTabsModule} from '@angular/material/tabs';
 import { HistoryComponent } from './history/history.component';
 import { P2pFormComponent } from './p2p-form/p2p-form.component';
-import {MatSelectModule} from "@angular/material/select";
+import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
-import {StorageService} from "./storage.service";
-import {MatTableModule} from "@angular/material/table";
+import {StorageService} from './storage.service';
+import {MatTableModule} from '@angular/material/table';
 import {registerLocaleData} from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {NgxMaskModule, IConfig} from "ngx-mask";
-import { NotifierModule } from "angular-notifier";
+import {NgxMaskModule, IConfig} from 'ngx-mask';
+import { NotifierModule } from 'angular-notifier';
 import { CardViewTransformPipe } from './pipes/card-view-transform.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 registerLocaleData(localeRu, 'ru');
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -44,11 +45,12 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatInputModule,
     MatTableModule,
     NgxMaskModule.forRoot(),
-    NotifierModule
+    NotifierModule,
+    HttpClientModule
   ],
   providers: [
     StorageService,
-    {provide: LOCALE_ID, useValue: "ru"}
+    {provide: LOCALE_ID, useValue: 'ru'}
   ],
   bootstrap: [AppComponent]
 })

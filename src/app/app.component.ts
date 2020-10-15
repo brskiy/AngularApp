@@ -1,20 +1,21 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {HttpService} from './http.service';
 
 export interface TabsLinks {
-  label: string,
-  link: string,
-  color?:string
+  label: string;
+  link: string;
+  color?: string;
 }
 export interface TransferInfo {
-  expiryMonth:number,
-  expiryYear:number,
-  senderCardNumber:string,
-  recipientCardNumber:string,
-  fullName:string,
-  docDate: Date,
-  sum: number,
-  id?: number
+  expiryMonth: number;
+  expiryYear: number;
+  senderCardNumber: string;
+  recipientCardNumber: string;
+  fullName: string;
+  docDate: Date;
+  sum: number;
+  id?: number;
 }
 
 @Component({
@@ -27,17 +28,24 @@ export interface TransferInfo {
 
 export class AppComponent implements OnInit{
 
-  constructor(private _router: Router) {  }
+  public shouldOpen: boolean = false;
+  public login:string
+  public password: string
 
-  public should_open:boolean = false
+  constructor(private _router: Router, private http: HttpService) {  }
+
   ngOnInit(): void {
-    this.should_open = localStorage.getItem("isOpen")==='true'
-    if (this.should_open) {this._router.navigateByUrl("/p2p")}
+    this.shouldOpen = localStorage.getItem('isOpen') === 'true';
+    if (this.shouldOpen) {this._router.navigateByUrl('/p2p'); }
   }
 
-  openChildComponent(){
-    this.should_open = true;
-    localStorage.setItem("isOpen", 'true')
+  auth(){
+    //this.http.auth("/api/user/auth", {name:this.login, password:this.password})
+  }
+
+  openChildComponent() : void {
+    this.shouldOpen = true;
+    localStorage.setItem('isOpen', 'true');
   }
 
 

@@ -2,43 +2,44 @@
 <div *ngIf="!loader">
 
   <div class="container">
-<div  class="card">
+    <div class="card">
 
-  <input type="text" class="form-control" placeholder="Номер карты плательщика" mask="0000 0000 0000 0000" [(ngModel)]="senderCardNumber">
-  <div style="display: flex">
-  <input type="text" class="form-control fio" placeholder="ФИО"  [(ngModel)]="fullName" >
+      <input type="text" class="form-control" placeholder="Номер карты плательщика" mask="0000 0000 0000 0000"
+             [(ngModel)]="senderCardNumber">
+      <div style="display: flex">
+        <input type="text" class="form-control fio" placeholder="ФИО" [(ngModel)]="fullName">
 
-  <mat-form-field class= 'ym' appearance="fill" >
-    <mat-label>Месяц</mat-label>
-    <mat-select required [(value)]="expiryMonth" >
-      <mat-option *ngFor="let m of months" [value]="m">
-        {{m}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+        <mat-form-field class='ym' appearance="fill">
+          <mat-label>Месяц</mat-label>
+          <mat-select required [(value)]="expiryMonth">
+            <mat-option *ngFor="let m of months" [value]="m">
+              {{m}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-  <mat-form-field class= 'ym' appearance="fill">
-    <mat-label>Год</mat-label>
-    <mat-select required [(value)]="expiryYear">
-      <mat-option *ngFor="let y of years" [value]="y">
-        {{y}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  </div>
-</div>
+        <mat-form-field class='ym' appearance="fill">
+          <mat-label>Год</mat-label>
+          <mat-select required [(value)]="expiryYear">
+            <mat-option *ngFor="let y of years" [value]="y">
+              {{y}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
 
 
-
-<div class="card">
-  <input type="text" class="form-control" placeholder="Номер карты получателя" mask="0000 0000 0000 0000" [(ngModel)]="recipientCardNumber">
-</div>
+    <div class="card">
+      <input type="text" class="form-control" placeholder="Номер карты получателя" mask="0000 0000 0000 0000"
+             [(ngModel)]="recipientCardNumber">
+    </div>
   </div>
 
 
   <div class="form-control-sum">
     <div class="sumBtn">
-      <input type="number" class="sum" placeholder="Сумма, &#8381;" [(ngModel)]="sum" >
+      <input type="number" class="sum" placeholder="Сумма, &#8381;" [(ngModel)]="sum">
       <button class="btn" (click)="addTransaction()">Перевести</button>
     </div>
   </div>

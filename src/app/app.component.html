@@ -1,13 +1,26 @@
-<div *ngIf="!should_open" >
-<div class="container">
-<button class="btn btnRedirect" [routerLink]="'/p2p'" (click)="openChildComponent()">Перейти на форму перевода</button>
-</div>
-<div class="container redirectText">
-<div> Данным действием вы подтверждаете, что согласны с политикой обработки данных бла бла бла куки и прочее. Использовал для проверки localstorage.</div>
-</div>
+<div *ngIf="!shouldOpen">
+  <div class="container">
+    <button class="btn btnRedirect" [routerLink]="'/p2p'" (click)="openChildComponent()">Перейти на форму перевода
+    </button>
+  </div>
+  <div class="container redirectText">
+    <div> Данным действием вы подтверждаете, что согласны с политикой обработки данных бла бла бла куки и прочееееее.
+      Использовал для проверки localstorage.
+    </div>
+  </div>
+
+  <div class="card">
+    <input type="text" class="form-control" placeholder="Логин" [(ngModel)]="login">
+    <input type="text" class="form-control" placeholder="Пароль" [(ngModel)]="password">
+    <button class="btn" (click)="auth()">Авторизоваться</button>
+  </div>
+
+
 </div>
 
-<app-layout *ngIf="should_open"></app-layout>
+
+
+<app-layout *ngIf="shouldOpen"></app-layout>
 
 <notifier-container></notifier-container>
 
