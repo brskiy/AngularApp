@@ -1,5 +1,5 @@
 import {Component, DoCheck} from '@angular/core';
-import {TabsLinks} from "../app.component";
+import {ITabsLinks} from "../app.component";
 
 @Component({
   selector: 'app-layout',
@@ -8,15 +8,16 @@ import {TabsLinks} from "../app.component";
 })
 export class LayoutComponent implements DoCheck {
 
-  links:TabsLinks[] = [
+  public links:ITabsLinks[] = [
     {label:"Перевод",link:"/p2p"},
     {label:"История",link:"/history"},];
+
+  public activeLink: string;
+
   constructor() {  }
 
-  activeLink: string
 
-
-  ngDoCheck(){
+  ngDoCheck():void{
     this.activeLink = location.pathname
   }
 

@@ -11,7 +11,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
-import {StorageService} from './storage.service';
+import {StorageService} from './services/storage.service';
 import {MatTableModule} from '@angular/material/table';
 import {registerLocaleData} from '@angular/common';
 import localeRu from '@angular/common/locales/ru';

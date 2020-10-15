@@ -1,7 +1,6 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {StorageService} from "../storage.service";
-import {TransferInfo} from "../app.component";
-import {MatTableModule} from '@angular/material/table';
+import {StorageService} from "../services/storage.service";
+import {ITransferInfo} from "../app.component";
 import {Router} from "@angular/router";
 
 @Component({
@@ -10,6 +9,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit, DoCheck {
+  public loader: boolean = false;
+  public history: ITransferInfo[] = [];
+  public displayedColumns: string[] = ['id', 'senderCardNumber', 'recipientCardNumber', 'sum', 'docDate','actions'];
 
 
   constructor(private _storageService:StorageService, private _router: Router) {
@@ -18,29 +20,26 @@ export class HistoryComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.getHistory()
   }
-  loader: boolean = false;
-  history: TransferInfo[] = [];
-  displayedColumns: string[] = ['id', 'senderCardNumber', 'recipientCardNumber', 'sum', 'docDate','actions'];
 
-  getHistory(){
+  getHistory():void{
     this.history = this._storageService.getHistory()
   }
 
-  deleteTransaction(element:TransferInfo){
+  deleteTransaction(element:ITransferInfo):void{
     this.loader = true
     this._storageService.deleteTransaction(element)
     setTimeout(()=>this.loader = false, 1000)
   }
 
-  ngDoCheck(){
+  ngDoCheck():void{
     this.getHistory()
   }
 
-  redirectP2P(){
+  redirectP2P():void{
     this._router.navigateByUrl("/p2p")
   }
 
-  repeat(element:TransferInfo){
+  repeat(element:ITransferInfo):void{
     this._storageService.repeat(element)
     this.redirectP2P()
   }
