@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {options} from '../app.module';
-import {combineAll} from 'rxjs/operators';
 import {NotifierService} from 'angular-notifier';
+import {Observable} from 'rxjs';
 
 export interface IResponse {
   data: any;
@@ -15,40 +14,28 @@ export interface IResponse {
 })
 
 export class HttpService {
-  private response:any
-  private success: boolean
 
-  constructor(private http: HttpClient, private _notifierService: NotifierService) {}
+  constructor(private _http: HttpClient, private _notifierService: NotifierService) {}
 
-  get(url:string, token:string):IResponse{
+  public get(url: string): Observable<IResponse> {
 
-      this.http.get(url,{headers:{"Content-Type":" application/json", "Authorization":"Bearer "+token}})
-        .subscribe(response => this.response = response, error => this._notifierService.notify('error', error))
-
-      return this.response
+    return this._http.get<IResponse>(url, {headers: {"Content-Type": " application/json", "Authorization": "Bearer " + this.getToken()}})
   }
 
-  delete(url: string, token:string): boolean{
+  public delete(url: string): Observable<boolean>{
 
-    this.http.delete(url,{headers:{"Content-Type":" application/json", "Authorization":"Bearer "+token}})
-      .subscribe(() => this.success = true, error => this._notifierService.notify('error', error))
-
-    console.log(this.success)
-
-    return this.success
+    return this._http.delete<boolean>(url,{headers:{"Content-Type":" application/json", "Authorization":"Bearer "+this.getToken()}})
   }
 
 
-  post(url: string, data: {}, token?:string):IResponse {
-    if(token){
-      this.http.post(url,JSON.stringify(data),{headers:{"Content-Type":" application/json", "Authorization":"Bearer "+token}})
-        .subscribe(response => this.response = response, error => this._notifierService.notify('error', error.error.error))
-    } else {
-      this.http.post(url,JSON.stringify(data),{headers:{"Content-Type":" application/json"}})
-        .subscribe(response => this.response = response, error => this._notifierService.notify('error', error.error.error))
-    }
-  console.log(this.response)
+  public post(url: string, data: {}):Observable<IResponse> {
 
-    return this.response
+    return this.getToken() ?
+      this._http.post<IResponse>(url,JSON.stringify(data),{headers:{"Content-Type":" application/json", "Authorization":"Bearer "+this.getToken()}}):
+      this._http.post<IResponse>(url,JSON.stringify(data),{headers:{"Content-Type":" application/json"}})
+  }
+
+  private getToken(): string{
+    return sessionStorage.getItem('token') || ""
   }
 }

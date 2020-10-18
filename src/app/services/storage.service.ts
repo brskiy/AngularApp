@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ITransferInfo} from "../app.component";
+import {ITransferInfo} from '../interfaces/ITransferInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -7,27 +7,27 @@ import {ITransferInfo} from "../app.component";
 
 
 export class StorageService {
-  h: ITransferInfo[] = []
-  activeTransaction: ITransferInfo = null
-  r:boolean = false
+  public isRepeat:boolean = false
+  public activeTransaction: ITransferInfo = null
+  private history: ITransferInfo[] = []
 
   constructor() { }
 
   getHistory():ITransferInfo[]{
-    return this.h
+    return this.history
   }
 
   addTransaction(transfer:ITransferInfo): void{
-    this.h.unshift(transfer)
+    this.history.unshift(transfer)
   }
 
   deleteTransaction(transfer:ITransferInfo): void{
-    this.h = this.h.filter((item) => item.id !== transfer.id)
+    this.history = this.history.filter((item) => item.id !== transfer.id)
   }
 
   repeat(transfer:ITransferInfo): void{
     this.activeTransaction = transfer
-    this.r = true
+    this.isRepeat = true
   }
 
 }

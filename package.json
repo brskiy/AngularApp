@@ -23,11 +23,11 @@
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
     "angular-notifier": "^6.0.1",
-    "crypto-js": "^4.0.0",
     "ngx-mask": "^10.0.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "ts-md5": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.0",

@@ -1,15 +1,26 @@
-<div class="container" *ngIf="!shouldOpen">
+<div class="loaderContainer" *ngIf="loading">
+  <mat-spinner class="loader"></mat-spinner>
+</div>
+
+
+<div class="container" *ngIf="!shouldOpen && !loading">
 
   <div class="card">
     <input type="text" class="form-control" placeholder="Логин" [(ngModel)]="login">
     <input type="text" class="form-control" placeholder="Пароль" [(ngModel)]="password">
     <button class="btn" (click)="tokenAuth(login, password)">Авторизоваться</button>
+    <button class="btn" (click)="toRegister(login, password)">Зарегистрироваться</button>
   </div>
 
 </div>
+
 
 <app-layout *ngIf="shouldOpen"></app-layout>
 
 <notifier-container></notifier-container>
 
-
+<div *ngIf="shouldOpen && !loading">
+  <button class="btn logout" (click)="logout()">
+    Выйти
+  </button>
+</div>

@@ -6,7 +6,8 @@ import {HistoryComponent} from "./history/history.component";
 import {AppComponent} from "./app.component";
 
 
-const routes: Routes = [{ path: '', component:AppComponent},
+const routes: Routes = [{path: '', redirectTo: "/login", pathMatch:'full'},
+  { path: 'login', component:AppComponent},
   { path: 'history', component: HistoryComponent },
   { path: 'p2p', component: P2pFormComponent}];
 

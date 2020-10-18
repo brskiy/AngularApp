@@ -1,5 +1,6 @@
 import {Component, DoCheck} from '@angular/core';
-import {ITabsLinks} from "../app.component";
+import {ITabsLinks} from '../interfaces/ITabsLinks';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -14,13 +15,12 @@ export class LayoutComponent implements DoCheck {
 
   public activeLink: string;
 
-  constructor() {  }
+  constructor(private _router : Router) {  }
 
 
   ngDoCheck():void{
     this.activeLink = location.pathname
   }
-
 
 
 

@@ -1,7 +1,7 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {StorageService} from "../services/storage.service";
-import {ITransferInfo} from "../app.component";
 import {Router} from "@angular/router";
+import {ITransferInfo} from '../interfaces/ITransferInfo';
 
 @Component({
   selector: 'app-history',

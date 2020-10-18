@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from "../services/storage.service";
-import {ITransferInfo} from "../app.component";
 import { NotifierService } from "angular-notifier";
+import {ITransferInfo} from '../interfaces/ITransferInfo';
 
 @Component({
   selector: 'app-p2p-form',
@@ -88,7 +88,7 @@ export class P2pFormComponent implements OnInit {
   //Повтор операции
   repeat(): void{
     const repeatTransaction = this._storageService.activeTransaction;
-    if(this._storageService.r){
+    if(this._storageService.isRepeat){
       this.senderCardNumber = repeatTransaction.senderCardNumber;
       this.recipientCardNumber = repeatTransaction.recipientCardNumber;
       this.fullName = repeatTransaction.fullName;
@@ -96,7 +96,7 @@ export class P2pFormComponent implements OnInit {
       this.expiryYear = String(repeatTransaction.expiryYear);
       this.expiryMonth = String(repeatTransaction.expiryMonth)
     }
-    this._storageService.r=false;
+    this._storageService.isRepeat=false;
     this._storageService.activeTransaction = null;
   }
 
