@@ -2,6 +2,7 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {StorageService} from "../services/storage.service";
 import {Router} from "@angular/router";
 import {ITransferInfo} from '../interfaces/ITransferInfo';
+import set = Reflect.set;
 
 @Component({
   selector: 'app-history',
@@ -9,8 +10,8 @@ import {ITransferInfo} from '../interfaces/ITransferInfo';
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit, DoCheck {
-  public loader: boolean = false;
-  public history: ITransferInfo[] = [];
+  public loading: boolean = false;
+  public history: ITransferInfo[] = this._storageService.history;
   public displayedColumns: string[] = ['id', 'senderCardNumber', 'recipientCardNumber', 'sum', 'docDate','actions'];
 
 
@@ -19,21 +20,25 @@ export class HistoryComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.getHistory()
+    this.history = this._storageService.history
+  }
+
+
+  ngDoCheck(): void{
+    this.loading = this._storageService.loading
   }
 
   getHistory():void{
-    this.history = this._storageService.getHistory()
+    this._storageService.getHistory()
+    this.history = this._storageService.history
   }
+
 
   deleteTransaction(element:ITransferInfo):void{
-    this.loader = true
     this._storageService.deleteTransaction(element)
-    setTimeout(()=>this.loader = false, 1000)
+    this.history = this._storageService.history
   }
 
-  ngDoCheck():void{
-    this.getHistory()
-  }
 
   redirectP2P():void{
     this._router.navigateByUrl("/p2p")

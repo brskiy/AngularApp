@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {StorageService} from "../services/storage.service";
 import { NotifierService } from "angular-notifier";
 import {ITransferInfo} from '../interfaces/ITransferInfo';
@@ -9,9 +9,9 @@ import {ITransferInfo} from '../interfaces/ITransferInfo';
   styleUrls: ['./p2p-form.component.scss']
 })
 
-export class P2pFormComponent implements OnInit {
+export class P2pFormComponent implements OnInit, DoCheck {
 
-  loader:boolean = false;
+  loading:boolean = false;
   senderCardNumber:string = "";
   recipientCardNumber:string = "";
   fullName:string = "";
@@ -20,32 +20,27 @@ export class P2pFormComponent implements OnInit {
   expiryYear: string;
   months: string[] = ["1","2","3","4","5","6","7","8","9","10","11","12"];
   years: string[] = ["20","21","22","23","24","25","26"];
-  history: ITransferInfo[] = this._storageService.getHistory();
-  isEmpty:boolean;
+  history: ITransferInfo[];
+  isNotEmpty:boolean;
   emptyField:string;
 
   constructor(private _storageService:StorageService, private _notifierService: NotifierService) { }
 
   ngOnInit(): void {
-    this.getHistory();
     this.repeat()
   }
+   ngDoCheck(): void {
+    this.loading = this._storageService.loading;
 
-  //Проверка на заполненность ВСЕХ полей
-  isEmptyFields(): void{
-   this.isEmpty = (!!this.senderCardNumber&&!!this.recipientCardNumber&&!!this.expiryMonth&&!!this.expiryYear&&!!this.sum&&!!this.fullName);
-  }
 
-  //Поиск названия пустого поля. TODO переделать на switch
-  searchEmptyField(): void{
-    this.emptyField = !this.senderCardNumber? "Номер карты плательщика": !this.recipientCardNumber? "Номер карты получателя": !(this.expiryMonth && this.expiryYear)? "Срок действия карты": !this.sum? "Сумма":!this.fullName? "ФИО": ""
-  }
+   }
+
   //И без слов понятно
-  addTransaction():void{
-    this.loader = true;
+  public addTransaction():void{
+    this.loading = true;
     this.isEmptyFields();
     //Если поля заполнены
-    if(this.isEmpty){
+    if(this.isNotEmpty){
       this._storageService.addTransaction(
         {
         expiryMonth: Number(this.expiryMonth),
@@ -53,42 +48,35 @@ export class P2pFormComponent implements OnInit {
         senderCardNumber: this.senderCardNumber,
         recipientCardNumber:this.recipientCardNumber,
         fullName:this.fullName,
-        docDate: new Date(),
-        sum: this.sum,
-        id: this.history.length?this.history[0].id+1:0
+        sum: this.sum
         }
     );
+
       //Обнуление
-    this.senderCardNumber = null;
-    this.recipientCardNumber = null;
-    this.fullName = null;
-    this.sum = null;
-    this.expiryYear = null;
-    this.expiryMonth = null;
-      //Лоадер + уведомление
-    setTimeout(() => {
-      this._notifierService.notify("success","Платеж в обработке. Ожидайте начисления");
-      this.loader = false
-    },3000)
+      this.senderCardNumber = null;
+      this.recipientCardNumber = null;
+      this.fullName = null;
+      this.sum = null;
+      this.expiryYear = null;
+      this.expiryMonth = null;
+      this.loading = false;
+
     }
     else {
-      this.loader = false;
+      this.loading = false;
       this.searchEmptyField();
       this._notifierService.hideOldest();
       this._notifierService.notify("error",`Поле "${this.emptyField}" пустое. Заполни его, пожалуйста` )
     }
+    this.getHistory()
 
-  }
-
-  //Получение истории
-  getHistory(): void{
-    this.history = this._storageService.getHistory()
   }
 
   //Повтор операции
-  repeat(): void{
-    const repeatTransaction = this._storageService.activeTransaction;
+  public repeat(): void{
     if(this._storageService.isRepeat){
+      const repeatTransaction = this._storageService.activeTransaction;
+      this.getHistory();
       this.senderCardNumber = repeatTransaction.senderCardNumber;
       this.recipientCardNumber = repeatTransaction.recipientCardNumber;
       this.fullName = repeatTransaction.fullName;
@@ -98,6 +86,32 @@ export class P2pFormComponent implements OnInit {
     }
     this._storageService.isRepeat=false;
     this._storageService.activeTransaction = null;
+  }
+
+  //Проверка на заполненность ВСЕХ полей
+  private isEmptyFields(): void{
+   this.isNotEmpty = (!!this.senderCardNumber&&!!this.recipientCardNumber&&!!this.expiryMonth&&!!this.expiryYear&&!!this.sum&&!!this.fullName);
+  }
+
+  //Поиск названия пустого поля
+  private searchEmptyField(): void{
+    this.emptyField =
+      !this.senderCardNumber?
+      "Номер карты плательщика":
+        !this.recipientCardNumber?
+          "Номер карты получателя":
+           !(this.expiryMonth && this.expiryYear)?
+             "Срок действия карты":
+             !this.sum?
+               "Сумма":
+               !this.fullName?
+                 "ФИО": ""
+  }
+
+  //Получение истории
+  private getHistory(): void{
+    this._storageService.getHistory()
+    this.history = this._storageService.history
   }
 
 

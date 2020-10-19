@@ -13,11 +13,10 @@ export class AuthService {
   constructor(private _httpService: HttpService, private _notifierService: NotifierService) { }
 
 
-  public isValidToken(): boolean {
-
+  public isValidToken(): void {
 
     if (!sessionStorage.getItem("token")){
-      return false
+      return
     }
 
     this.loading = true;
@@ -26,19 +25,13 @@ export class AuthService {
         if(result.success){
           this.loading = false;
           this.isAuth = true
-
-          return true
         }},
         (error) => {
-          if(!sessionStorage.getItem("token")){
-            this._notifierService.notify('error', "Время сессии истекло, авторизуйтесь");
-          }else if (!this.isAuth){
-            this._notifierService.notify('error', "Пожалуйста, авторизуйтесь");
-          }
+          sessionStorage.removeItem('token')
+          this._notifierService.notify('error', "Время сессии истекло, авторизуйтесь");
           this.loading = false;
-
-          return false
-          }, () => {
+          },
+      () => {
           this.loading = false
           }
     )
@@ -52,8 +45,8 @@ export class AuthService {
       (result: IResponse) => {
         if(result.success){
           this.loading = false;
-          this.isAuth = true
-          this._notifierService.notify("success", "Авторизация успешно пройдена")
+          this.isAuth = true;
+          this._notifierService.notify("success", "Авторизация успешно пройдена");
           sessionStorage.setItem("token",result.data.access_token)
         }
       },
@@ -65,12 +58,12 @@ export class AuthService {
   }
 
   public toRegister(login: string, password:string): void{
-    this.loading = true
+    this.loading = true;
     this._httpService.post("/api/user/createUser",{name:login, password: this.hashPassword(password)}).subscribe(
       (result: IResponse) => {
         if(result.success){
           this.loading = false;
-          this._notifierService.notify("success", result.data)
+          this._notifierService.notify("success", result.data);
           this._notifierService.notify("success", "Авторизуйтесь с данными, с которыми Вы только что зарегистрировались")
         }
       },
@@ -82,7 +75,6 @@ export class AuthService {
 
 
   }
-
 
   private hashPassword(password: string): string{
     return Md5.hashStr(password+password).toString()

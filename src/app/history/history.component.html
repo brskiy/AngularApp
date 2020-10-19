@@ -1,15 +1,8 @@
-<div class="container">
-<mat-spinner *ngIf="loader" class="loader"></mat-spinner>
+<mat-spinner *ngIf="loading" class="loader"></mat-spinner>
 
-  <div *ngIf="!history.length&&!loader" class="form-control-sum">
-    <div class="sumBtn">
-      <div>Совершите перевод, чтобы тут появилась история
-        <button class="sumBtn btn" (click)="redirectP2P()">Совершить перевод</button>
-      </div>
-    </div>
-  </div>
+<div class="container" *ngIf="!loading">
 
-<table *ngIf="!loader&&!!history.length" mat-table [dataSource]="history" class="mat-elevation-z8 table">
+<table *ngIf="!loading" mat-table [dataSource]="history" class="mat-elevation-z8 table">
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -39,7 +32,7 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Действие </th>
     <td mat-cell *matCellDef="let element">
-      <button class="btn" (click)="deleteTransaction(element)">Удалить</button>
+      <button class="btn red" (click)="deleteTransaction(element)">Удалить</button>
       <button class="btn" (click)="repeat(element)">Повторить</button>
     </td>
   </ng-container>

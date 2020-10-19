@@ -4,7 +4,7 @@ export interface ITransferInfo {
     senderCardNumber: string;
     recipientCardNumber: string;
     fullName: string;
-    docDate: Date;
+    docDate?: Date;
     sum: number;
     id?: number;
 }

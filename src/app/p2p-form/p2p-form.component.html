@@ -1,5 +1,5 @@
-<mat-spinner *ngIf="loader" class="loader"></mat-spinner>
-<div *ngIf="!loader">
+<mat-spinner *ngIf="loading" class="loader"></mat-spinner>
+<div *ngIf="!loading">
 
   <div class="container">
     <div class="card">
@@ -39,7 +39,7 @@
 
   <div class="form-control-sum">
     <div class="sumBtn">
-      <input type="number" class="sum" placeholder="Сумма, &#8381;" [(ngModel)]="sum">
+      <input type="text" class="sum" mask="0*.00" placeholder="Сумма, &#8381;" [(ngModel)]="sum">
       <button class="btn" (click)="addTransaction()">Перевести</button>
     </div>
   </div>
