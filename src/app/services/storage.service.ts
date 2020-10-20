@@ -54,7 +54,6 @@ export class StorageService {
     this.loading = true;
     this._http.delete(`api/p2p/transfer/delete/${transfer.id}`).subscribe(
       ()=>{
-        this.getHistory();
         this._notifierService.notify("success","Удалено");
         this.loading = false
       },

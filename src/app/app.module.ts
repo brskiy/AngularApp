@@ -12,7 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
 import {StorageService} from './services/storage.service';
-import {MatTableModule} from '@angular/material/table';
+import {MatTableModule, MatTableDataSource} from '@angular/material/table';
 import {registerLocaleData} from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -20,6 +20,7 @@ import {NgxMaskModule, IConfig} from 'ngx-mask';
 import { NotifierModule } from 'angular-notifier';
 import { CardViewTransformPipe } from './pipes/card-view-transform.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import {MatSortModule} from '@angular/material/sort';
 
 
 registerLocaleData(localeRu, 'ru');
@@ -47,7 +48,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatTableModule,
     NgxMaskModule.forRoot(),
     NotifierModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSortModule
   ],
   providers: [
     StorageService,

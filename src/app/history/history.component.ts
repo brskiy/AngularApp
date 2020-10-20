@@ -18,6 +18,7 @@ export class HistoryComponent implements OnInit, DoCheck {
   public loading: boolean = false;
   public history: ITransferInfo[]
   public displayedColumns: string[] = ['id', 'senderCardNumber', 'recipientCardNumber', 'sum', 'docDate','actions'];
+  public dataSource: MatTableDataSource<any>
 
 
 
@@ -26,10 +27,23 @@ export class HistoryComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
+    this.getHistoryThere()
+
+
+  }
+
+
+  ngDoCheck(): void{
+    this.loading = this._storageService.loading
+  }
+
+  getHistoryThere(): void{
+    this.loading = true
     this._http.get("api/p2p/transfer/history").subscribe( // баг с пустой историей при перезагрузке
       (result)=>{
         this.history = result.data;
         this.loading = false;
+        this.dataSource = new MatTableDataSource(this.history);
       },
       (error)=>{
         this.loading = false
@@ -39,14 +53,10 @@ export class HistoryComponent implements OnInit, DoCheck {
     )
   }
 
-
-  ngDoCheck(): void{
-    this.loading = this._storageService.loading
-  }
-
   deleteTransaction(element:ITransferInfo):void{
     this._storageService.deleteTransaction(element);
-    this.history = this._storageService.history
+    this.getHistoryThere()
+
   }
 
 
@@ -59,4 +69,8 @@ export class HistoryComponent implements OnInit, DoCheck {
     this.redirectP2P()
   }
 
+  applyFilter(event: KeyboardEvent):void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase(); // Дыра в безопасности ( фильтрация по скрытому номеру карты? ) Исправится, если бэк будет присылатль шифрованное
+  }
 }
