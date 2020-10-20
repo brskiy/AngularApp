@@ -37,6 +37,12 @@ body{
   outline: none;
   border-radius: 5px;
   margin-right: 10px;
+
+  &:disabled {
+    background: #ccc;
+    color: #000;
+    cursor: not-allowed;
+  }
 }
 
 .btn:hover {
@@ -44,7 +50,7 @@ body{
 }
 
 .mat-form-field-wrapper{
-  margin-top: 13px;
+  margin-top: 20px;
 
 }
 .mat-form-field-flex{
@@ -53,6 +59,10 @@ body{
 
 .mat-form-field-underline{
   width: 0px !important;
+}
+
+label{
+  padding-bottom: -10px;
 }
 
 
@@ -64,16 +74,44 @@ textarea {
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
+
+  &.ng-invalid.ng-touched {
+   border: 1px solid red;
+  }
+  &.ng-valid.ng-touched {
+    border: 1px solid green;
+  }
+
 }
 
 .loader{
   margin:111px auto;
 }
 
+
+
 .form-control {
   display: block;
-  margin: 1.2rem 0;
+  margin-top: 0.3rem;
+  margin-bottom: .5rem;
+
+  label {
+    display: block;
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin-bottom: .3rem;
+  }
+
+  input {
+    margin-bottom: 0;
+  }
+
+  .validation {
+    color: red;
+  }
 }
+
+
 
 .card {
   padding: 1rem;

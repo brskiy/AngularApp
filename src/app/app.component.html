@@ -6,8 +6,8 @@
 <div class="container" *ngIf="!shouldOpen && !loading">
 
   <div class="card">
-    <input type="text" class="form-control" placeholder="Логин" [(ngModel)]="login">
-    <input type="text" class="form-control" placeholder="Пароль" [(ngModel)]="password">
+    <input type="text" class="form-control" required placeholder="Логин" [(ngModel)]="login">
+    <input type="text" class="form-control" required placeholder="Пароль" [(ngModel)]="password">
     <button class="btn" (click)="tokenAuth(login, password)">Авторизоваться</button>
     <button class="btn" (click)="toRegister(login, password)">Зарегистрироваться</button>
   </div>

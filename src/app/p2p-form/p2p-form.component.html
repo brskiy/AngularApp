@@ -1,17 +1,58 @@
 <mat-spinner *ngIf="loading" class="loader"></mat-spinner>
-<div *ngIf="!loading">
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="submit()">
 
   <div class="container">
     <div class="card">
 
-      <input type="text" class="form-control" placeholder="Номер карты плательщика" mask="0000 0000 0000 0000"
-             [(ngModel)]="senderCardNumber">
+      <div class="form-control">
+        <label> Номер карты плательщика </label>
+        <input type="text"
+               class="form-control"
+               placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
+               mask="0000 0000 0000 0000"
+               formControlName="senderCardNumber"
+               [(ngModel)]="senderCardNumber">
+        <div
+          *ngIf="form.get('senderCardNumber').invalid && form.get('senderCardNumber').touched"
+          class="validation">
+          <small *ngIf="form.get('senderCardNumber').errors.required">
+            Поле "Номер карты плательщика" обязательно для заполнения
+          </small>
+
+          <small *ngIf="form.get('senderCardNumber').errors.minlength">
+            Введите корректный номер карты
+          </small>
+
+        </div>
+      </div>
+
       <div style="display: flex">
-        <input type="text" class="form-control fio" placeholder="ФИО" [(ngModel)]="fullName">
+
+        <div class="form-control">
+          <label>Имя и фамилия на карте </label>
+          <input type="text"
+                 class="form-control fio"
+                 placeholder="NIKITA BOYARSKII"
+                 formControlName="fullName"
+                 [(ngModel)]="fullName">
+          <div
+            *ngIf="form.get('fullName').invalid && form.get('fullName').touched"
+            class="validation fio">
+
+            <small *ngIf="form.get('fullName').errors.required">
+              Поле "Имя и фамилия на карте" обязательно для заполнения
+            </small>
+            <small *ngIf="form.get('fullName').errors.pattern">
+              Поле должно содержать только заглавные латинские буквы
+            </small>
+          </div>
+
+
+        </div>
 
         <mat-form-field class='ym' appearance="fill">
           <mat-label>Месяц</mat-label>
-          <mat-select required [(value)]="expiryMonth">
+          <mat-select required [(ngModel)]="expiryMonth" formControlName="expiryMonth">
             <mat-option *ngFor="let m of months" [value]="m">
               {{m}}
             </mat-option>
@@ -20,28 +61,66 @@
 
         <mat-form-field class='ym' appearance="fill">
           <mat-label>Год</mat-label>
-          <mat-select required [(value)]="expiryYear">
+          <mat-select required [(ngModel)]="expiryYear" formControlName="expiryYear">
             <mat-option *ngFor="let y of years" [value]="y">
               {{y}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
-    </div>
 
+      </div>
+
+    </div>
 
     <div class="card">
-      <input type="text" class="form-control" placeholder="Номер карты получателя" mask="0000 0000 0000 0000"
-             [(ngModel)]="recipientCardNumber">
+
+      <div class="form-control">
+        <label>Номер карты получателя</label>
+        <input type="text"
+               class="form-control"
+               placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
+               mask="0000 0000 0000 0000"
+               formControlName="recipientCardNumber"
+               [(ngModel)]="recipientCardNumber">
+        <div
+          *ngIf="form.get('recipientCardNumber').invalid && form.get('recipientCardNumber').touched"
+          class="validation">
+          <small *ngIf="form.get('recipientCardNumber').errors.required">
+            Поле "Номер карты получателя" обязательно для заполнения
+          </small>
+
+          <small *ngIf="form.get('recipientCardNumber').errors.minlength">
+            Введите корректный номер карты
+          </small>
+
+        </div>
+      </div>
+
+
     </div>
   </div>
 
+  <div class="container">
+  <div class="form-control sum">
+    <label>Сумма перевода</label>
+    <input type="text"
+           class="form-control"
+           placeholder="123.45 &#8381;"
+           mask="0*.00"
+           formControlName="sum"
+           [(ngModel)]="sum">
+    <div
+      *ngIf="form.get('sum').invalid && form.get('sum').touched"
+      class="validation">
+      <small *ngIf="form.get('sum').errors.required">
+        Поле "Сумма перевода" обязательно для заполнения
+      </small>
 
-  <div class="form-control-sum">
-    <div class="sumBtn">
-      <input type="text" class="sum" mask="0*.00" placeholder="Сумма, &#8381;" [(ngModel)]="sum">
-      <button class="btn" (click)="addTransaction()">Перевести</button>
+
     </div>
   </div>
+  </div>
+  <button class="btn sumBtn" (click)="submit()" type="button" [disabled]="form.invalid">Перевести</button>
 
-</div>
+
+</form>
