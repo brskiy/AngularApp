@@ -3,7 +3,6 @@ import {StorageService} from "../services/storage.service";
 import { NotifierService } from "angular-notifier";
 import {ITransferInfo} from '../interfaces/ITransferInfo';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import validate = WebAssembly.validate;
 
 @Component({
   selector: 'app-p2p-form',
@@ -13,10 +12,7 @@ import validate = WebAssembly.validate;
 
 export class P2pFormComponent implements OnInit, DoCheck {
 
-  form: FormGroup
-
-
-
+  form: FormGroup;
   loading:boolean = false;
   senderCardNumber:string = null;
   recipientCardNumber:string = null;
@@ -27,13 +23,13 @@ export class P2pFormComponent implements OnInit, DoCheck {
   months: string[] = ["1","2","3","4","5","6","7","8","9","10","11","12"];
   years: string[] = ["20","21","22","23","24","25","26"];
   history: ITransferInfo[];
-  isNotEmpty:boolean;
-  emptyField:string;
+  // isNotEmpty:boolean;
+  // emptyField:string;
 
   constructor(private _storageService:StorageService, public _notifierService: NotifierService) { }
 
   ngOnInit(): void {
-    this.repeat()
+    this.repeat();
     this.form = new FormGroup({
       senderCardNumber: new FormControl(null, [Validators.minLength(16), Validators.required]),
       fullName: new FormControl(null,[Validators.required, Validators.pattern(new RegExp(/^[A-Z, ]+$/))]),
@@ -52,37 +48,37 @@ export class P2pFormComponent implements OnInit, DoCheck {
 
   //И без слов понятно
   public addTransaction():void{
-    this.loading = true;
-    this.isEmptyFields();
+    // this.isEmptyFields();
     //Если поля заполнены
-    if(this.isNotEmpty){
-      this._storageService.addTransaction(
+    // if(this.isNotEmpty){
+    // const formData = {...this.form.value}
+    this._storageService.addTransaction(
         {
         expiryMonth: Number(this.expiryMonth),
         expiryYear: Number(this.expiryYear),
         senderCardNumber: this.senderCardNumber,
-        recipientCardNumber:this.recipientCardNumber,
-        fullName:this.fullName,
+        recipientCardNumber: this.recipientCardNumber,
+        fullName: this.fullName,
         sum: Number(this.sum)
         }
     );
 
-      //Обнуление
+      // Обнуление
+      this.form.reset();
       // this.senderCardNumber = null;
       // this.recipientCardNumber = null;
       // this.fullName = null;
       // this.sum = null;
       // this.expiryYear = null;
       // this.expiryMonth = null;
-      // this.loading = false;
 
-    }
-    else {
-      this.loading = false;
-      this.searchEmptyField();
-      this._notifierService.hideOldest();
-      this._notifierService.notify("error",`Поле "${this.emptyField}" пустое. Заполни его, пожалуйста` )
-    }
+
+    // }
+    // else {
+    //   this.searchEmptyField();
+    //   this._notifierService.hideOldest();
+    //   this._notifierService.notify("error",`Поле "${this.emptyField}" пустое. Заполни его, пожалуйста` )
+    // }
     this.getHistory()
 
   }
@@ -106,34 +102,31 @@ export class P2pFormComponent implements OnInit, DoCheck {
 
   public submit(): void{
     this.addTransaction()
-    console.log(this.form)
-    const formData = {...this.form.value}
-    console.log(formData)
   }
 
   //Проверка на заполненность ВСЕХ полей
-  private isEmptyFields(): void{
-   this.isNotEmpty = (!!this.senderCardNumber&&!!this.recipientCardNumber&&!!this.expiryMonth&&!!this.expiryYear&&!!this.sum&&!!this.fullName);
-  }
+  // private isEmptyFields(): void{
+  //  this.isNotEmpty = (!!this.senderCardNumber&&!!this.recipientCardNumber&&!!this.expiryMonth&&!!this.expiryYear&&!!this.sum&&!!this.fullName);
+  // }
 
   //Поиск названия пустого поля
-  private searchEmptyField(): void{
-    this.emptyField =
-      !this.senderCardNumber?
-      "Номер карты плательщика":
-        !this.recipientCardNumber?
-          "Номер карты получателя":
-           !(this.expiryMonth && this.expiryYear)?
-             "Срок действия карты":
-             !this.sum?
-               "Сумма":
-               !this.fullName?
-                 "ФИО": ""
-  }
+  // private searchEmptyField(): void{
+  //   this.emptyField =
+  //     !this.senderCardNumber?
+  //     "Номер карты плательщика":
+  //       !this.recipientCardNumber?
+  //         "Номер карты получателя":
+  //          !(this.expiryMonth && this.expiryYear)?
+  //            "Срок действия карты":
+  //            !this.sum?
+  //              "Сумма":
+  //              !this.fullName?
+  //                "ФИО": ""
+  // }
 
   //Получение истории
   private getHistory(): void{
-    this._storageService.getHistory()
+    this._storageService.getHistory();
     this.history = this._storageService.history
   }
 }

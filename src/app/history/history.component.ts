@@ -2,7 +2,10 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {StorageService} from "../services/storage.service";
 import {Router} from "@angular/router";
 import {ITransferInfo} from '../interfaces/ITransferInfo';
-import set = Reflect.set;
+
+import {MatTableDataSource} from '@angular/material/table';
+import {HttpService} from '../services/http.service';
+
 
 @Component({
   selector: 'app-history',
@@ -10,17 +13,30 @@ import set = Reflect.set;
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit, DoCheck {
+
+
   public loading: boolean = false;
-  public history: ITransferInfo[] = this._storageService.history;
+  public history: ITransferInfo[]
   public displayedColumns: string[] = ['id', 'senderCardNumber', 'recipientCardNumber', 'sum', 'docDate','actions'];
 
 
-  constructor(private _storageService:StorageService, private _router: Router) {
+
+  constructor(private _storageService:StorageService, private _router: Router, private _http: HttpService) {
+
   }
 
   ngOnInit(): void {
-    this.getHistory()
-    this.history = this._storageService.history
+    this._http.get("api/p2p/transfer/history").subscribe( // баг с пустой историей при перезагрузке
+      (result)=>{
+        this.history = result.data;
+        this.loading = false;
+      },
+      (error)=>{
+        this.loading = false
+      },()=>{
+        this.loading = false
+      }
+    )
   }
 
 
@@ -28,14 +44,8 @@ export class HistoryComponent implements OnInit, DoCheck {
     this.loading = this._storageService.loading
   }
 
-  getHistory():void{
-    this._storageService.getHistory()
-    this.history = this._storageService.history
-  }
-
-
   deleteTransaction(element:ITransferInfo):void{
-    this._storageService.deleteTransaction(element)
+    this._storageService.deleteTransaction(element);
     this.history = this._storageService.history
   }
 
@@ -45,7 +55,7 @@ export class HistoryComponent implements OnInit, DoCheck {
   }
 
   repeat(element:ITransferInfo):void{
-    this._storageService.repeat(element)
+    this._storageService.repeat(element);
     this.redirectP2P()
   }
 

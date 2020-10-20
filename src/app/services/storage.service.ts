@@ -12,7 +12,7 @@ export class StorageService {
   public isRepeat:boolean = false;
   public activeTransaction: ITransferInfo = null;
   public loading: boolean = false;
-  public history: ITransferInfo[] = []
+  public history: ITransferInfo[] = [];
   constructor(private _http: HttpService, private _notifierService: NotifierService) { }
 
 

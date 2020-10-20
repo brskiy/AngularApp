@@ -27,7 +27,7 @@ export class AuthService {
           this.isAuth = true
         }},
         (error) => {
-          sessionStorage.removeItem('token')
+          sessionStorage.removeItem('token');
           this._notifierService.notify('error', "Время сессии истекло, авторизуйтесь");
           this.loading = false;
           },

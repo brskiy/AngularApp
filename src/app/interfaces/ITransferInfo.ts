@@ -6,5 +6,6 @@ export interface ITransferInfo {
     fullName: string;
     docDate?: Date;
     sum: number;
-    id?: number;
+    id?: string;
+    userId?: string;
 }
