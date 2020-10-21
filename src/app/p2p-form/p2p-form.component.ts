@@ -26,7 +26,10 @@ export class P2pFormComponent implements OnInit, DoCheck {
   // isNotEmpty:boolean;
   // emptyField:string;
 
-  constructor(private _storageService:StorageService, public _notifierService: NotifierService) { }
+  constructor(
+    private _storageService:StorageService,
+    // public _notifierService: NotifierService
+  ) { }
 
   ngOnInit(): void {
     this.repeat();
@@ -79,7 +82,7 @@ export class P2pFormComponent implements OnInit, DoCheck {
     //   this._notifierService.hideOldest();
     //   this._notifierService.notify("error",`Поле "${this.emptyField}" пустое. Заполни его, пожалуйста` )
     // }
-    this.getHistory()
+    // this.getHistory()
 
   }
 
@@ -87,7 +90,7 @@ export class P2pFormComponent implements OnInit, DoCheck {
   public repeat(): void{
     if(this._storageService.isRepeat){
       const repeatTransaction = this._storageService.activeTransaction;
-      this.getHistory();
+      // this.getHistory();
       this.senderCardNumber = repeatTransaction.senderCardNumber;
       this.recipientCardNumber = repeatTransaction.recipientCardNumber;
       this.fullName = repeatTransaction.fullName;
@@ -125,8 +128,8 @@ export class P2pFormComponent implements OnInit, DoCheck {
   // }
 
   //Получение истории
-  private getHistory(): void{
-    this._storageService.getHistory();
-    this.history = this._storageService.history
-  }
+  // private getHistory(): void{
+  //   this._storageService.getHistory();
+  //   this.history = this._storageService.history
+  // }
 }

@@ -1,8 +1,16 @@
 <mat-spinner *ngIf="loading" class="loader"></mat-spinner>
-<input matInput (keyup)="applyFilter($event)" placeholder="Отфильтруем?)" #input>
 
-<div class="container" *ngIf="!loading">
-<table *ngIf="!loading" mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
+<div class="form-control" *ngIf="!loading">
+  <input class="form-control" (keyup)="applyFilter($event)" placeholder="Отфильтруем?)"  #input>
+</div>
+
+<div *ngIf="!dataSource.filteredData.length && !loading">
+  Операций по подходящим условиям не найдено, либо Вы их еще не совершили
+</div>
+
+<div class="container" *ngIf="!loading && dataSource.filteredData.length">
+
+  <table *ngIf="!loading" mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> No. </th>
