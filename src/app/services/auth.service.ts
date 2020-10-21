@@ -5,8 +5,10 @@ import {Md5} from 'ts-md5/dist/md5';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' //Обьявление в модуле нужно сделать
 })
+
+
 export class AuthService {
   public isAuth: boolean = false;
   public loading: boolean;

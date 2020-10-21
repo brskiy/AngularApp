@@ -18,7 +18,7 @@ export class LayoutComponent implements DoCheck {
   constructor(private _router : Router) {  }
 
 
-  ngDoCheck():void{
+  ngDoCheck():void{ // переделать
     this.activeLink = location.pathname
   }
 

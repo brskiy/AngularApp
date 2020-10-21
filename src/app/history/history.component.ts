@@ -33,7 +33,7 @@ export class HistoryComponent implements OnInit, DoCheck {
   }
 
 
-  ngDoCheck(): void{
+  ngDoCheck(): void{ // переделать
     this.loading = this._storageService.loading
   }
 

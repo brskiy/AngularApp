@@ -39,6 +39,8 @@ export class StorageService {
       (result)=>{
         this.loading = false;
         this._notifierService.notify("success","Перевод находится в обработке");
+        this.getHistory()
+
       },
       (error)=>{
         this._notifierService.notify("error", error.error.error);
@@ -56,6 +58,7 @@ export class StorageService {
       ()=>{
         this._notifierService.notify("success","Удалено");
         this.loading = false
+        this.getHistory()
       },
       (error)=>{
         this._notifierService.notify("error", error.error.error);
