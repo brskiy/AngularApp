@@ -21,6 +21,8 @@ import { NotifierModule } from 'angular-notifier';
 import { CardViewTransformPipe } from './pipes/card-view-transform.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import {MatSortModule} from '@angular/material/sort';
+import {AuthService} from './services/auth.service';
+import {HttpService} from './services/http.service';
 
 
 registerLocaleData(localeRu, 'ru');
@@ -53,6 +55,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
   ],
   providers: [
     StorageService,
+    AuthService,
+    HttpService,
     {provide: LOCALE_ID, useValue: 'ru'}
   ],
   bootstrap: [AppComponent]

@@ -2,69 +2,66 @@ import {Injectable} from '@angular/core';
 import {ITransferInfo} from '../interfaces/ITransferInfo';
 import {HttpService} from './http.service';
 import {NotifierService} from 'angular-notifier';
+import {Observable, Subject} from 'rxjs';
+import {IResponse} from '../interfaces/IResponse';
 
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable()
 
 export class StorageService {
   public isRepeat:boolean = false;
   public activeTransaction: ITransferInfo = null;
-  public loading: boolean = false;
   public history: ITransferInfo[] = [];
-  constructor(private _http: HttpService, private _notifierService: NotifierService) { }
+  private subject: Subject<any> = new Subject<any>()
+
+  constructor(
+    private _http: HttpService,
+    private _notifierService: NotifierService) {
+  }
 
 
 
   getHistory():void{
-    this.loading = true;
+    this.subject.next(true)
     this._http.get("api/p2p/transfer/history").subscribe(
-      (result)=>{
+      (result:IResponse<ITransferInfo[]>)=>{
         this.history = result.data;
-        this.loading = false
+        this.subject.next(false)
       },
       (error)=>{
         this._notifierService.notify("error", error.error.error);
-        this.loading = false
-      },()=>{
-        this.loading = false
+        this.subject.next(false)
       }
     )
   }
 
   addTransaction(transfer:ITransferInfo): void{
-    this.loading = true;
+    this.subject.next(true)
     this._http.post("api/p2p/transfer/create", transfer).subscribe(
-      (result)=>{
-        this.loading = false;
+      (result:IResponse<string>)=>{
+        this.subject.next(false)
         this._notifierService.notify("success","Перевод находится в обработке");
         this.getHistory()
 
       },
       (error)=>{
         this._notifierService.notify("error", error.error.error);
-        this.loading = false
-      },()=>{
-        this.loading = false
+        this.subject.next(false)
       }
     )
 
   }
 
   deleteTransaction(transfer:ITransferInfo): void{
-    this.loading = true;
+    this.subject.next(true)
     this._http.delete(`api/p2p/transfer/delete/${transfer.id}`).subscribe(
-      ()=>{
+      (result:IResponse<string>)=>{
         this._notifierService.notify("success","Удалено");
-        this.loading = false
+        this.subject.next(false)
         this.getHistory()
       },
       (error)=>{
         this._notifierService.notify("error", error.error.error);
-        this.loading = false
-      },()=>{
-        this.loading = false
+        this.subject.next(false)
       }
     );
     this.history = this.history.filter((item) => item.id !== transfer.id) // Мгновенное изменение
@@ -75,4 +72,13 @@ export class StorageService {
     this.isRepeat = true
   }
 
+
+
+
+
+
+
+  getLoading(): Observable<any>{
+    return this.subject.asObservable()
+  }
 }

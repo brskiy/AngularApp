@@ -1,13 +1,11 @@
-import { Injectable } from '@angular/core';
-import {HttpService, IResponse} from './http.service';
+import {Injectable} from '@angular/core';
+import {HttpService} from './http.service';
 import {NotifierService} from 'angular-notifier';
 import {Md5} from 'ts-md5/dist/md5';
+import {IResponse} from '../interfaces/IResponse';
+import {IToken} from '../interfaces/IToken';
 
-
-@Injectable({
-  providedIn: 'root' //Обьявление в модуле нужно сделать
-})
-
+@Injectable()
 
 export class AuthService {
   public isAuth: boolean = false;
@@ -23,7 +21,7 @@ export class AuthService {
 
     this.loading = true;
     this._httpService.get("/api/user/account").subscribe(
-      (result:IResponse)=> {
+      (result:IResponse<string>)=> {
         if(result.success){
           this.loading = false;
           this.isAuth = true
@@ -44,7 +42,7 @@ export class AuthService {
   public auth(login: string, password:string) : void{
     this.loading = true;
     this._httpService.post("/api/user/auth",{name:login, password: this.hashPassword(password)}).subscribe(
-      (result: IResponse) => {
+      (result: IResponse<IToken>) => {
         if(result.success){
           this.loading = false;
           this.isAuth = true;
@@ -62,7 +60,7 @@ export class AuthService {
   public toRegister(login: string, password:string): void{
     this.loading = true;
     this._httpService.post("/api/user/createUser",{name:login, password: this.hashPassword(password)}).subscribe(
-      (result: IResponse) => {
+      (result: IResponse<string>) => {
         if(result.success){
           this.loading = false;
           this._notifierService.notify("success", result.data);

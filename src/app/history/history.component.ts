@@ -1,10 +1,10 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {StorageService} from "../services/storage.service";
 import {Router} from "@angular/router";
 import {ITransferInfo} from '../interfaces/ITransferInfo';
-
 import {MatTableDataSource} from '@angular/material/table';
 import {HttpService} from '../services/http.service';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -12,30 +12,34 @@ import {HttpService} from '../services/http.service';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
 })
-export class HistoryComponent implements OnInit, DoCheck {
+export class HistoryComponent implements OnInit, OnDestroy {
 
 
   public loading: boolean = false;
   public history: ITransferInfo[]
   public displayedColumns: string[] = ['id', 'senderCardNumber', 'recipientCardNumber', 'sum', 'docDate','actions'];
   public dataSource: MatTableDataSource<any>
+  private _subscription: Subscription;
 
 
 
   constructor(private _storageService:StorageService, private _router: Router, private _http: HttpService) {
-
+    this._subscription = this._storageService.getLoading().subscribe(
+      (loading: boolean) => {
+        this.loading = loading
+      }
+    )
   }
 
   ngOnInit(): void {
     this.getHistoryThere()
+  }
 
-
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
 
-  ngDoCheck(): void{ // переделать
-    this.loading = this._storageService.loading
-  }
 
   getHistoryThere(): void{
     this.loading = true

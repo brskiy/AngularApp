@@ -1,7 +1,8 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {StorageService} from "../services/storage.service";
 import {ITransferInfo} from '../interfaces/ITransferInfo';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-p2p-form',
@@ -9,24 +10,29 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./p2p-form.component.scss']
 })
 
-export class P2pFormComponent implements OnInit, DoCheck {
+export class P2pFormComponent implements OnInit, OnDestroy {
 
-  form: FormGroup;
-  loading:boolean = false;
-  senderCardNumber:string = null;
-  recipientCardNumber:string = null;
-  fullName:string = null;
-  sum: number = null;
-  expiryMonth: string = null;
-  expiryYear: string = null;
-  months: string[] = ["1","2","3","4","5","6","7","8","9","10","11","12"];
-  years: string[] = ["20","21","22","23","24","25","26"];
-  history: ITransferInfo[];
+  public form: FormGroup;
+  public loading:boolean = false;
+  public senderCardNumber:string = null;
+  public recipientCardNumber:string = null;
+  public fullName:string = null;
+  public sum: number = null;
+  public expiryMonth: string = null;
+  public expiryYear: string = null;
+  public months: string[] = ["1","2","3","4","5","6","7","8","9","10","11","12"];
+  public years: string[] = ["20","21","22","23","24","25","26"];
+  public history: ITransferInfo[];
+  private _subscription: Subscription;
 
 
-  constructor(
-    private _storageService:StorageService,
-  ) { }
+  constructor( private _storageService:StorageService) {
+    this._subscription = this._storageService.getLoading().subscribe(
+      (loading: boolean) => {
+          this.loading = loading
+      }
+    )
+  }
 
   ngOnInit(): void {
     this.repeat();
@@ -40,9 +46,10 @@ export class P2pFormComponent implements OnInit, DoCheck {
     })
   }
 
-   ngDoCheck(): void { // переделать
-    this.loading = this._storageService.loading;
-   }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
+  }
 
 
   public addTransaction():void{
